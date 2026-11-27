@@ -8,5 +8,4 @@
 
 ## Implementation and verification
 
-- Rehearse the release workflow and verify the artifact handoff without publishing.
 - Verify actual publishing on the next authorized version tag.
