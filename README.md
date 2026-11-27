@@ -42,6 +42,15 @@ codex plugin add kanso@kanso
 
 Start a fresh session. The plugins include a prompt hook that asks the agent to load Kanso on every prompt. In Codex, review and trust the hook in `/hooks` to enable it.
 
+### GitHub Copilot CLI plugin
+
+```sh
+copilot plugin marketplace add datenwissenschaften/kanso
+copilot plugin install kanso@kanso
+```
+
+To request Kanso on every prompt in a repository, [add the activation instruction](#apply-it-on-every-prompt) to `.github/copilot-instructions.md`.
+
 ### Other agents and repository installs
 
 ![One skill bundle can be installed globally or inside a project](assets/kanso-install.webp)

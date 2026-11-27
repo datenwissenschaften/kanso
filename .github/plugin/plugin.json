@@ -1,0 +1,7 @@
+{
+  "name": "kanso",
+  "version": "1.1.0",
+  "description": "Opinionated engineering guidance for software, analytics, data science, and AI products.",
+  "license": "MIT",
+  "skills": "skills/"
+}

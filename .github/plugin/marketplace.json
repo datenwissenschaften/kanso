@@ -1,0 +1,12 @@
+{
+  "name": "kanso",
+  "owner": {
+    "name": "datenwissenschaften"
+  },
+  "plugins": [
+    {
+      "name": "kanso",
+      "source": "./"
+    }
+  ]
+}

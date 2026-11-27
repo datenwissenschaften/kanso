@@ -1,0 +1,40 @@
+name: Agent evaluation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-evaluation
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    if: vars.KANSO_EVAL_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: evaluation
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24.19.0"
+          package-manager-cache: false
+      - name: Run paired scenarios
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          test -n "$ANTHROPIC_API_KEY"
+          mkdir -p "$RUNNER_TEMP/kanso-eval"
+          npm exec --yes --package=@anthropic-ai/claude-code@2.1.292 -- +            claude plugin eval . --eval-dir tests/scenarios --runs 2 +            --model haiku --judge-model haiku --concurrency 2 --max-cost-usd 3 +            --ablation with-without --no-publish --trust-plugin +            --output-dir "$RUNNER_TEMP/kanso-eval" +            --json "$RUNNER_TEMP/kanso-eval/results.json" +            --report "$RUNNER_TEMP/kanso-eval/report.html"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: always()
+        with:
+          name: kanso-agent-evaluation
+          path: ${{ runner.temp }}/kanso-eval/
+          if-no-files-found: warn
+          retention-days: 7

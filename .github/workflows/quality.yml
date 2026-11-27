@@ -3,6 +3,7 @@ name: Quality
 on:
   push:
   pull_request:
+  workflow_call:
 
 permissions:
   contents: read
@@ -26,8 +27,9 @@ jobs:
           package-manager-cache: false
       - name: Validate format and skill metadata
         run: |
-          npx --yes prettier@3.8.1 --check '**/*.md' '.github/workflows/*.yml' '.agents/plugins/*.json' '.claude-plugin/*.json' '.codex-plugin/*.json' 'hooks/*.json' package.json
+          npx --yes prettier@3.8.1 --check '**/*.md' '.github/*.md' '.github/**/*.yml' '.github/plugin/*.json' '.agents/plugins/*.json' '.claude-plugin/*.json' '.codex-plugin/*.json' 'hooks/*.json' package.json tests/distribution.test.mjs
           uvx --python 3.13 --from 'git+https://github.com/agentskills/agentskills.git@83021e2be457a9b6679148719c1f6074f0ad975e#subdirectory=skills-ref' skills-ref validate skills/kanso
+          node --test tests/distribution.test.mjs
       - name: Verify required files and resource discovery
         shell: bash
         run: |
@@ -37,7 +39,8 @@ jobs:
             skills/kanso/profiles/{python,typescript,rust,go,java}.md
             tests/scenarios/README.md .github/workflows/quality.yml
             .agents/plugins/marketplace.json .codex-plugin/plugin.json
-            .claude-plugin/{marketplace,plugin}.json hooks/hooks.json package.json
+            .claude-plugin/{marketplace,plugin}.json .github/plugin/{marketplace,plugin}.json
+            hooks/hooks.json package.json
           )
           for file in "${required[@]}"; do
             if [[ ! -s "$file" ]]; then
@@ -49,6 +52,15 @@ jobs:
           for resource in references/*.md profiles/*.md; do
             grep -Fq "]($resource)" SKILL.md || { echo "Unlinked resource: $resource" >&2; exit 1; }
           done
+      - name: Smoke-test the Copilot marketplace
+        env:
+          COPILOT_AUTO_UPDATE: "false"
+        run: |
+          export COPILOT_HOME="$(mktemp -d)"
+          npm exec --yes --package=@github/copilot@1.0.116 -- copilot plugin marketplace add "$GITHUB_WORKSPACE"
+          npm exec --yes --package=@github/copilot@1.0.116 -- copilot plugin install kanso@kanso
+          npm exec --yes --package=@github/copilot@1.0.116 -- copilot plugin list --json |
+            jq -e '.[] | select(.name == "kanso" and .marketplace == "kanso" and .enabled)'
       - name: Verify links, workflow, and secrets
         shell: bash
         run: |
@@ -68,7 +80,32 @@ jobs:
           tar -xzf gitleaks.tar.gz gitleaks
 
           cd "$GITHUB_WORKSPACE"
-          "$tools/lychee-x86_64-unknown-linux-gnu/lychee" --offline '*.md' 'docs/*.md' 'skills/**/*.md' 'tests/scenarios/**/*.md'
+          "$tools/lychee-x86_64-unknown-linux-gnu/lychee" --offline '*.md' '.github/*.md' 'docs/*.md' 'skills/**/*.md' 'tests/scenarios/**/*.md'
           "$tools/actionlint"
           "$tools/gitleaks" git --redact --log-opts=--all
           "$tools/gitleaks" dir --redact .
+      - name: Build and inspect distribution archives
+        run: |
+          version="$(node -p 'require("./package.json").version')"
+          stage="$(mktemp -d)"
+          mkdir -p dist
+          cp -R skills/kanso "$stage/"
+          cp LICENSE "$stage/kanso/"
+          epoch="$(git show -s --format=%ct HEAD)"
+          find "$stage/kanso" -exec touch -d "@$epoch" {} +
+          (cd "$stage" && find kanso -type f | LC_ALL=C sort | TZ=UTC zip -Xq "$GITHUB_WORKSPACE/dist/kanso.zip" -@)
+          npm pack --ignore-scripts --pack-destination dist
+          tar -xzf "dist/kanso-skill-$version.tgz" -C "$stage"
+          unzip -t dist/kanso.zip
+          unzip -q dist/kanso.zip -d "$stage/extracted"
+          diff -r skills/kanso "$stage/package/skills/kanso"
+          cmp LICENSE "$stage/package/LICENSE"
+          diff -r "$stage/kanso" "$stage/extracted/kanso"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: kanso-distribution
+          path: |
+            dist/kanso.zip
+            dist/kanso-skill-*.tgz
+          if-no-files-found: error
+          retention-days: 7

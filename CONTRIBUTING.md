@@ -8,4 +8,8 @@ Use the commands in the [quality workflow](.github/workflows/quality.yml) to ver
 
 Use [Semantic Versioning](https://semver.org/). Use patch releases for compatible corrections, minor releases for compatible principles or profiles, and major releases for breaking changes to the engineering contract. Update the [changelog](CHANGELOG.md) and create a v-prefixed release tag after verification.
 
-For the standalone release asset, export the verified commit to a staging directory, copy the root LICENSE into its `skills/kanso` folder, and create `kanso.zip` with that folder at the archive root. Extract it into an empty directory and validate the skill and links before attaching the ZIP to the [GitHub release](https://github.com/datenwissenschaften/kanso/releases).
+Update the version in `package.json` and the Claude Code, Codex, and Copilot manifests together. The [quality workflow](.github/workflows/quality.yml) builds and inspects the ZIP and npm tarball. Pushing a matching `vX.Y.Z` tag starts the [publish workflow](.github/workflows/publish.yml). It reruns quality checks and attaches the verified ZIP to the GitHub release.
+
+To enable npm publishing, create the initial package with an authorized npm account. In its [trusted publisher settings](https://docs.npmjs.com/trusted-publishers/), select GitHub Actions and register `datenwissenschaften/kanso`, workflow `publish.yml`, and environment `npm`. Set the GitHub repository variable `NPM_PUBLISH_ENABLED` to `true` after setup. Future tags publish the verified tarball using OIDC.
+
+To run the paid [agent evaluation workflow](.github/workflows/evaluate.yml), configure the `evaluation` environment with `ANTHROPIC_API_KEY` and enable the repository variable `KANSO_EVAL_ENABLED`. Dispatch it from Actions. It uses synthetic scenarios and saves reports as run artifacts. The evaluator checks a USD 3 budget before each run. Concurrent runs already underway can exceed it.
