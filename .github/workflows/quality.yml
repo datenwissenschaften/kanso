@@ -56,7 +56,8 @@ jobs:
         env:
           COPILOT_AUTO_UPDATE: "false"
         run: |
-          export COPILOT_HOME="$(mktemp -d)"
+          COPILOT_HOME="$(mktemp -d)"
+          export COPILOT_HOME
           npm exec --yes --package=@github/copilot@1.0.116 -- copilot plugin marketplace add "$GITHUB_WORKSPACE"
           npm exec --yes --package=@github/copilot@1.0.116 -- copilot plugin install kanso@kanso
           npm exec --yes --package=@github/copilot@1.0.116 -- copilot plugin list --json |
