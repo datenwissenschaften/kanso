@@ -7,3 +7,5 @@ Write observable Given/When/Then criteria for a changed instruction. Run the rel
 Use the commands in the [quality workflow](.github/workflows/quality.yml) to verify the proposed changes. Run behavioral scenarios separately for affected instructions.
 
 Use [Semantic Versioning](https://semver.org/). Use patch releases for compatible corrections, minor releases for compatible principles or profiles, and major releases for breaking changes to the engineering contract. Update the [changelog](CHANGELOG.md) and create a v-prefixed release tag after verification.
+
+Build the release asset from the verified commit with `git archive --format=zip --prefix=engineering-standards/ --output=engineering-standards.zip HEAD`. Extract it to an empty directory and check the skill and its resources before attaching the ZIP to the [GitHub release](https://github.com/datenwissenschaften/engineering-standards/releases).

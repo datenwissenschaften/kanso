@@ -65,7 +65,7 @@ jobs:
           tar -xzf gitleaks.tar.gz gitleaks
 
           cd "$GITHUB_WORKSPACE"
-          "$tools/lychee-x86_64-unknown-linux-gnu/lychee" --offline '*.md' 'references/*.md' 'profiles/*.md' 'tests/scenarios/*.md'
+          "$tools/lychee-x86_64-unknown-linux-gnu/lychee" --offline '*.md' 'docs/*.md' 'references/*.md' 'profiles/*.md' 'tests/scenarios/*.md'
           "$tools/actionlint"
           "$tools/gitleaks" git --redact --log-opts=--all
           "$tools/gitleaks" dir --redact .
