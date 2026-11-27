@@ -13,7 +13,7 @@ Read `pyproject.toml`, the dependency manifests, CI, and the supported Python ve
 
 For new projects, prefer uv, Ruff, Pyright with strict checking for owned modules, and pytest. Keep an existing equivalent. Put settings in `pyproject.toml` where supported. Use Hypothesis to test invariants that are hard to cover with examples.
 
-With tools installed in a uv project, run `uv run --locked ruff check`, `uv run --locked ruff format --check`, `uv run --locked pyright`, and `uv run --locked pytest`. Build and smoke-test the wheel if distributing a package. See the [uv locking guide](https://docs.astral.sh/uv/concepts/projects/sync/).
+Use Gherkin `.feature` files for acceptance tests and run them with pytest-bdd through the existing pytest suite. With tools installed in a uv project, run `uv run --locked ruff check`, `uv run --locked ruff format --check`, `uv run --locked pyright`, and `uv run --locked pytest`. Build and smoke-test the wheel if distributing a package. See the [uv locking guide](https://docs.astral.sh/uv/concepts/projects/sync/).
 
 ## Library candidates
 
@@ -36,6 +36,7 @@ Start with the standard library. Keep an existing open-source tool that meets th
 | Local LLM inference                  | ollama         | Connect to a local model server when local inference meets requirements.         |
 | HTTP API service                     | FastAPI        | Use typed request and response boundaries for a new API.                         |
 | Server-rendered project UI           | Jinja2         | Use plain HTML templates served by the existing application.                     |
+| Existing local chat prototypes       | Chainlit       | Keep archived deployments isolated. Upstream no longer provides security fixes.  |
 | Interactive browser charts           | Plotly         | Render charts using locally bundled assets.                                      |
 | HTTP requests                        | httpx          | Set explicit timeouts and reuse client instances.                                |
 | Bounded retry policies               | Tenacity       | Retry only safe operations for a finite number of attempts.                      |
@@ -45,6 +46,7 @@ Start with the standard library. Keep an existing open-source tool that meets th
 | Measured serialization bottlenecks   | msgspec        | Adopt only after profiling and checking compatibility.                           |
 | Attribute access to dynamic mappings | python-box     | Keep external schema validation at the boundary.                                 |
 | Behavior tests                       | pytest         | Test public behavior through small fixtures.                                     |
+| Executable Gherkin specifications    | pytest-bdd     | Run shared Given/When/Then scenarios in the existing test suite.                 |
 | Property-based tests                 | Hypothesis     | Generate inputs for explicit invariants.                                         |
 | HTTP client tests                    | respx          | Exercise error and timeout handling without remote calls.                        |
 | Database integration tests           | Testcontainers | Use a real test database when the project supports containers.                   |

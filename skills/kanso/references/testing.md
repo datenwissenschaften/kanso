@@ -1,6 +1,6 @@
 # Behavior-driven testing
 
-For each behavior change, write observable Given/When/Then acceptance criteria covering the intended outcome, relevant boundaries and failures. Use the existing native framework unless a dedicated BDD runner provides concrete value.
+For each behavior change, write observable acceptance scenarios in Gherkin. Put executable acceptance scenarios in `.feature` files. Use the project's existing Gherkin runner, reusing test fixtures in step definitions. Cover the intended outcome, relevant boundaries and failures. Keep unit, property, and other lower-level checks in the existing native framework. Preserve existing suites and report any execution gap when the project lacks a Gherkin runner.
 
 1. **RED.** Add the smallest test of the new or corrected behavior and run it. Confirm the failure comes from the missing behavior or defect. A broken harness provides no RED evidence.
 2. **GREEN.** Implement the smallest correct, maintainable change and run the test again.

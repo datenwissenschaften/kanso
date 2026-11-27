@@ -3,4 +3,4 @@ type: llm
 weight: 1
 ---
 
-Shows a specific reproducer before changing code, rounds the final sum, and includes whole-cent regression and representative boundary tests. Does not claim to have executed the checks.
+Pass if the response gives a Gherkin regression scenario for [0.4, 0.4] → 1, proposes rounding only the final sum, includes a whole-cent case and a rounding tie, and describes the expected failure before the fix and success afterward. Grade the plan without requiring tool calls, source edits, or executed tests.
