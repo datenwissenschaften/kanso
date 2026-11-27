@@ -48,3 +48,7 @@ On 2026-11-27, Codex CLI 0.172.0 answered all 14 scenario prompts in each of fou
 Both arms reported 14,208 cached input tokens per batch. The pilot checked response completeness and used prompts that called for engineering decisions. It did not establish task pass rates, cost, production code size, or executed test coverage. The small, concurrent batches are too limited for a latency claim.
 
 The Claude Code 2.1.292 / Haiku run attempted 11 cases with two runs in each arm. The account's weekly quota blocked all 44 attempts, including grading. These attempts yielded no behavioral scores. Three data and AI cases were added after that run and were included in the Codex pilot.
+
+## Claude Code paired evaluation
+
+The [first paid run](https://github.com/datenwissenschaften/kanso/actions/runs/45971015361) completed 56 attempts across 14 scenarios. Kanso passed 8 of 28 attempts and the baseline passed 9 of 28. Seven attempts reached the five-turn limit and were counted as failures. The evaluator reported USD 1.77. Several answers searched for repository files in an empty fixture. The revised prompts state that each exercise is self-contained, and the turn limit is now ten. The original and revised runs should be reported separately.

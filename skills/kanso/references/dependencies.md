@@ -4,3 +4,5 @@
 2. Check maintenance, security advisories and history, provenance, license, supported platforms and versions, API stability, transitive dependencies, deployment footprint, and integration cost. Use current evidence and state what remains unverified. Add an SBOM when distribution or risk warrants it.
 3. Use native APIs and configuration directly where practical. Pin tools and lock dependency resolution when supported. Remove superseded code and unused dependencies after verifying existing callers.
 4. Report material tradeoffs and checks. Use changes in owned code and complexity as diagnostics. Preserve tests and safeguards.
+
+For new libraries and UI frameworks, verify the open-source license for the exact component and edition. The required features must work locally or on infrastructure the project controls without a vendor account, paid unlock, or hosted quota. Prefer the simplest open-source option. Recommend one tool per responsibility and explain its fit.

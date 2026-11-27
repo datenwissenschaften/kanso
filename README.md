@@ -113,6 +113,6 @@ Contributors can link an existing clone into the same skills directory for live 
 
 ## Benchmark status
 
-**14 scenarios × 4 Codex batches = 56 responses.** The [decision pilot](tests/scenarios/README.md#pilot-results) measured response time and tokens with and without Kanso. It generated no implementation diffs or executed tests. The Claude Code comparison was blocked by its weekly quota.
+**14 scenarios × 4 Codex batches = 56 responses.** The [decision pilot](tests/scenarios/README.md#pilot-results) measured response time and tokens. A separate [Claude Code run](https://github.com/datenwissenschaften/kanso/actions/runs/45971015361) fell below the passing threshold. Both evaluations use written scenarios. Repository implementation and executed tests require a separate benchmark.
 
 [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [MIT license](LICENSE)

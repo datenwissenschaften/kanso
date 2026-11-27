@@ -2,6 +2,10 @@ name: Agent evaluation
 
 on:
   workflow_dispatch:
+    inputs:
+      scenario:
+        description: Exact scenario name. Leave blank for the full suite.
+        type: string
 
 permissions:
   contents: read
@@ -27,6 +31,7 @@ jobs:
       - name: Run paired scenarios
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SCENARIO: ${{ inputs.scenario }}
         run: |
           test -n "$ANTHROPIC_API_KEY"
           mkdir -p "$RUNNER_TEMP/kanso-eval"
@@ -38,6 +43,11 @@ jobs:
             --json "$RUNNER_TEMP/kanso-eval/results.json"
             --report "$RUNNER_TEMP/kanso-eval/report.html"
           )
+          if [[ -n "$SCENARIO" ]]; then
+            [[ "$SCENARIO" =~ ^[a-z][a-z-]*$ ]]
+            test -f "tests/scenarios/$SCENARIO/prompt.md"
+            args+=(--case "$SCENARIO")
+          fi
           npm exec --yes --package=@anthropic-ai/claude-code@2.1.292 -- claude plugin eval . "${args[@]}"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         if: always()

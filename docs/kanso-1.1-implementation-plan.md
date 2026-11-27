@@ -11,4 +11,4 @@ Kanso will ship one skill for software, data science, analytics, and AI product 
 ## Implementation and verification
 
 - Publish the initial npm package when an authorized registry account is available. Configure OIDC for subsequent releases.
-- Run the paid paired evaluation after the repository's evaluation environment has an API key and the workflow is enabled. Use working repository fixtures for any claims about generated code or executed tests.
+- Verify the revised paired evaluation after the initial run exposed empty-fixture ambiguity and turn-limit errors. Use working repository fixtures for claims about generated code and executed tests.
