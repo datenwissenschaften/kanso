@@ -1,0 +1,63 @@
+diff --git a/src/documents.mjs b/src/documents.mjs
+index 74b966e..cbbca36 100644
+--- a/src/documents.mjs
++++ b/src/documents.mjs
+@@ -1,8 +1,12 @@
+ export class NotFoundError extends Error {}
+ 
+ // Returns the document with `id` for an authenticated caller ({ tenantId }).
++// Documents outside the caller's tenant are reported as missing.
+ export function readDocument(documents, caller, id) {
+-  const document = documents.find((candidate) => candidate.id === id);
++  const tenantId = caller?.tenantId;
++  const document = tenantId
++    ? documents.find((candidate) => candidate.id === id && candidate.tenantId === tenantId)
++    : undefined;
+   if (!document) throw new NotFoundError(`document ${id} not found`);
+   return document;
+ }
+diff --git a/test/documents.test.mjs b/test/documents.test.mjs
+index 3d56fe9..7d4bbdb 100644
+--- a/test/documents.test.mjs
++++ b/test/documents.test.mjs
+@@ -1,8 +1,37 @@
+ import assert from "node:assert/strict";
+ import test from "node:test";
+-import { readDocument } from "../src/documents.mjs";
++import { NotFoundError, readDocument } from "../src/documents.mjs";
+ 
+-test("reads a document of the caller's tenant", () => {
+-  const documents = [{ id: 1, tenantId: "a", title: "Plan" }];
++const documents = [
++  { id: 1, tenantId: "a", title: "Plan" },
++  { id: 42, tenantId: "b", title: "Secret" },
++];
++
++test("Given a document of the caller's tenant, when read, then it is returned", () => {
+   assert.equal(readDocument(documents, { tenantId: "a" }, 1).title, "Plan");
+ });
++
++test("Given a document of another tenant, when read, then it is indistinguishable from a missing one", () => {
++  assert.throws(() => readDocument(documents, { tenantId: "a" }, 42), (error) => {
++    assert.ok(error instanceof NotFoundError);
++    assert.equal(error.message, "document 42 not found");
++    return true;
++  });
++});
++
++test("Given the same id in two tenants, when read, then the caller's own document is returned", () => {
++  const shared = [
++    { id: 7, tenantId: "b", title: "B" },
++    { id: 7, tenantId: "a", title: "A" },
++  ];
++  assert.equal(readDocument(shared, { tenantId: "a" }, 7).title, "A");
++});
++
++test("Given a caller without a tenant, when read, then no document is returned", () => {
++  const open = [...documents, { id: 5, title: "Orphan" }, { id: 6, tenantId: null, title: "Null" }];
++  for (const caller of [{}, { tenantId: undefined }, { tenantId: null }, { tenantId: "" }, null, undefined]) {
++    for (const id of [1, 5, 6, 42]) {
++      assert.throws(() => readDocument(open, caller, id), NotFoundError);
++    }
++  }
++});

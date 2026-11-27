@@ -1,0 +1,34 @@
+diff --git a/src/revenue.mjs b/src/revenue.mjs
+index 5a2ac85..faea206 100644
+--- a/src/revenue.mjs
++++ b/src/revenue.mjs
+@@ -8,9 +8,9 @@ export function weekStart(timestamp) {
+ // Revenue in cents per week for orders with at least one payment.
+ export function weeklyRevenue(orders, payments) {
+   const revenue = {};
+-  for (const payment of payments) {
+-    const order = orders.find((candidate) => candidate.id === payment.orderId);
+-    if (!order) continue;
++  const paidOrderIds = new Set(payments.map((payment) => payment.orderId));
++  for (const order of orders) {
++    if (!paidOrderIds.has(order.id)) continue;
+     const week = weekStart(order.createdAt);
+     revenue[week] = (revenue[week] ?? 0) + order.amountCents;
+   }
+diff --git a/test/revenue.test.mjs b/test/revenue.test.mjs
+index ece8292..c6597f3 100644
+--- a/test/revenue.test.mjs
++++ b/test/revenue.test.mjs
+@@ -2,6 +2,12 @@ import assert from "node:assert/strict";
+ import test from "node:test";
+ import { weeklyRevenue } from "../src/revenue.mjs";
+ 
++test("counts an order paid in several instalments once", () => {
++  const orders = [{ id: 7, amountCents: 5000, createdAt: "2026-11-25T10:00:00Z" }];
++  const payments = [{ orderId: 7 }, { orderId: 7 }];
++  assert.deepEqual(weeklyRevenue(orders, payments), { "2026-11-23": 5000 });
++});
++
+ test("counts a paid order in the week of its creation", () => {
+   const orders = [{ id: 1, amountCents: 2500, createdAt: "2026-11-25T10:00:00Z" }];
+   assert.deepEqual(weeklyRevenue(orders, [{ orderId: 1 }]), { "2026-11-23": 2500 });

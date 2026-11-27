@@ -1,0 +1,17 @@
+diff --git a/src/revenue.mjs b/src/revenue.mjs
+index 5a2ac85..9069eab 100644
+--- a/src/revenue.mjs
++++ b/src/revenue.mjs
+@@ -8,9 +8,12 @@ export function weekStart(timestamp) {
+ // Revenue in cents per week for orders with at least one payment.
+ export function weeklyRevenue(orders, payments) {
+   const revenue = {};
++  const counted = new Set();
+   for (const payment of payments) {
++    if (counted.has(payment.orderId)) continue;
+     const order = orders.find((candidate) => candidate.id === payment.orderId);
+     if (!order) continue;
++    counted.add(order.id);
+     const week = weekStart(order.createdAt);
+     revenue[week] = (revenue[week] ?? 0) + order.amountCents;
+   }

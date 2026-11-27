@@ -1,0 +1,22 @@
+diff --git a/src/invoice.mjs b/src/invoice.mjs
+index 53bdbe0..ece2155 100644
+--- a/src/invoice.mjs
++++ b/src/invoice.mjs
+@@ -1,4 +1,4 @@
+ // Sums invoice line amounts given in fractional cents and returns whole cents.
+ export function totalCents(amounts) {
+-  return amounts.reduce((total, amount) => Math.round(total + amount), 0);
++  return Math.round(amounts.reduce((total, amount) => total + amount, 0));
+ }
+diff --git a/test/invoice.test.mjs b/test/invoice.test.mjs
+index e528028..6a76c78 100644
+--- a/test/invoice.test.mjs
++++ b/test/invoice.test.mjs
+@@ -5,3 +5,7 @@ import { totalCents } from "../src/invoice.mjs";
+ test("sums whole-cent lines", () => {
+   assert.equal(totalCents([100, 250]), 350);
+ });
++
++test("rounds once on the sum of fractional-cent lines", () => {
++  assert.equal(totalCents([0.4, 0.4]), 1);
++});

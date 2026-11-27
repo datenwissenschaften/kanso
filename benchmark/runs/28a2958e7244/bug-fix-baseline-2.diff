@@ -1,0 +1,10 @@
+diff --git a/src/invoice.mjs b/src/invoice.mjs
+index 53bdbe0..ece2155 100644
+--- a/src/invoice.mjs
++++ b/src/invoice.mjs
+@@ -1,4 +1,4 @@
+ // Sums invoice line amounts given in fractional cents and returns whole cents.
+ export function totalCents(amounts) {
+-  return amounts.reduce((total, amount) => Math.round(total + amount), 0);
++  return Math.round(amounts.reduce((total, amount) => total + amount, 0));
+ }

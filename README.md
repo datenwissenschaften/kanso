@@ -115,6 +115,17 @@ Contributors can link an existing clone into the same skills directory for live 
 
 **14 scenarios × 4 Codex batches = 56 responses.** The [decision pilot](tests/scenarios/README.md#pilot-results) measured response time and tokens. A separate [Claude Code run](https://github.com/datenwissenschaften/kanso/actions/runs/45971015361) fell below the passing threshold. Both evaluations use written scenarios.
 
-The [agentic benchmark](benchmark/protocol.json) runs Claude Code on working fixtures with and without Kanso and grades each change with hidden tests. A fix counts as proven only when the agent's own tests fail on the original defect. The protocol is registered, and no registered run has been published yet.
+The [agentic benchmark](benchmark/protocol.json) runs Claude Code on working fixtures with and without Kanso and grades each change with hidden tests. A fix counts as proven only when the agent's own tests fail on the original defect.
+
+**3 scenarios × 2 arms × 5 runs = 30 agent sessions, 0 errors.** Claude Code 2.1.292 with `claude-sonnet-5-5`:
+
+| Metric                                     | Baseline          | Kanso           | Verdict      |
+| ------------------------------------------ | ----------------- | --------------- | ------------ |
+| Solved (hidden acceptance and adversarial) | 15/15 [0.80, 1]   | 15/15 [0.80, 1] | inconclusive |
+| Proven (agent test failed on the defect)   | 8/15 [0.30, 0.75] | 15/15 [0.80, 1] | Kanso better |
+| Escaped (agent tests green, hidden red)    | 0/15 [0, 0.20]    | 0/15 [0, 0.20]  | inconclusive |
+| Agent cost total / per proven fix (USD)    | 0.71 / 0.089      | 1.18 / 0.078    | not tested   |
+
+Brackets are 95 % Wilson intervals. The proven difference is +0.47 [0.17, 0.70]. Baseline proofs per scenario were 0/5 in `bug-fix`, where it added no failing test, 3/5 in `analytics` and 5/5 in `security`. Kanso proved 5/5 in each. Both arms fixed every defect, so the result supports test-first evidence, not better fixes. Kanso spent about 1.7 × the agent cost per run. The [results](benchmark/runs/28a2958e7244/results.json), diffs, transcripts and [report](benchmark/runs/28a2958e7244/index.html) are published. The run cites revision `28a2958`, which became `d5c9c79` when an unrelated document was removed from history. The `benchmark/` tree is identical except that `run.mjs` now replaces the home directory with `~` in published artifacts. The same redaction was applied to four transcripts of this run, and nothing else changed.
 
 [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [MIT license](LICENSE)

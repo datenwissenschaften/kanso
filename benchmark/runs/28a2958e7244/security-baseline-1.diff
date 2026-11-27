@@ -1,0 +1,60 @@
+diff --git a/src/documents.mjs b/src/documents.mjs
+index 74b966e..8081b2b 100644
+--- a/src/documents.mjs
++++ b/src/documents.mjs
+@@ -2,7 +2,11 @@ export class NotFoundError extends Error {}
+ 
+ // Returns the document with `id` for an authenticated caller ({ tenantId }).
+ export function readDocument(documents, caller, id) {
+-  const document = documents.find((candidate) => candidate.id === id);
++  const tenantId = caller?.tenantId;
++  const hasTenant = tenantId !== undefined && tenantId !== null && tenantId !== "";
++  const document = hasTenant
++    ? documents.find((candidate) => candidate.id === id && candidate.tenantId === tenantId)
++    : undefined;
+   if (!document) throw new NotFoundError(`document ${id} not found`);
+   return document;
+ }
+diff --git a/test/documents.test.mjs b/test/documents.test.mjs
+index 3d56fe9..17b78da 100644
+--- a/test/documents.test.mjs
++++ b/test/documents.test.mjs
+@@ -1,6 +1,37 @@
+ import assert from "node:assert/strict";
+ import test from "node:test";
+-import { readDocument } from "../src/documents.mjs";
++import { NotFoundError, readDocument } from "../src/documents.mjs";
++
++test("other tenants' and missing documents are indistinguishable", () => {
++  const documents = [{ id: 42, tenantId: "b", title: "Secret" }];
++  const message = (caller, id) => {
++    try {
++      readDocument(documents, caller, id);
++    } catch (error) {
++      assert.ok(error instanceof NotFoundError);
++      return error.message.replace(String(id), "");
++    }
++    assert.fail("expected NotFoundError");
++  };
++  assert.equal(message({ tenantId: "a" }, 42), message({ tenantId: "a" }, 7));
++});
++
++test("a caller without a tenant reads nothing", () => {
++  const documents = [{ id: 1, title: "Orphan" }, { id: 2, tenantId: "b" }];
++  for (const caller of [{}, { tenantId: null }, { tenantId: "" }, undefined]) {
++    for (const id of [1, 2]) {
++      assert.throws(() => readDocument(documents, caller, id), NotFoundError);
++    }
++  }
++});
++
++test("same id in several tenants resolves to the caller's own", () => {
++  const documents = [
++    { id: 42, tenantId: "b", title: "B" },
++    { id: 42, tenantId: "a", title: "A" },
++  ];
++  assert.equal(readDocument(documents, { tenantId: "a" }, 42).title, "A");
++});
+ 
+ test("reads a document of the caller's tenant", () => {
+   const documents = [{ id: 1, tenantId: "a", title: "Plan" }];

@@ -9,7 +9,7 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gradeWorkspace, materialize } from "./grade.mjs";
@@ -39,6 +39,19 @@ export function schedule({ scenarios, arms, runsPerArm, seed }) {
     [jobs[i], jobs[j]] = [jobs[j], jobs[i]];
   }
   return jobs;
+}
+
+// Published artifacts show the home directory as ~ in raw, slash and JSON-escaped form.
+export function redact(text, home = homedir()) {
+  const segments = home.split(/[\\/]+/).filter(Boolean);
+  if (!text || segments.length < 2) return text;
+  const escaped = segments.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const lead = /^[\\/]/.test(home) ? "[\\\\/]+" : "";
+  const pattern = new RegExp(
+    `${lead}${escaped.join("[\\\\/]+")}(?![\\w.-])`,
+    "gi",
+  );
+  return text.replace(pattern, "~");
 }
 
 // Only the shipped plugin files, so the treatment arm cannot reach hidden graders.
@@ -145,9 +158,13 @@ export function runBenchmark({ protocol, agent, out, revision }) {
     const diff = git(workspace, "diff", "--cached").stdout;
     const grade = result.error ? null : gradeWorkspace(scenarioDir, workspace);
     const id = `${job.scenario}-${job.arm}-${job.index}`;
-    writeFileSync(join(out, `${id}.diff`), diff);
-    writeFileSync(join(out, `${id}.transcript.json`), result.transcript ?? "");
+    writeFileSync(join(out, `${id}.diff`), redact(diff));
+    writeFileSync(
+      join(out, `${id}.transcript.json`),
+      redact(result.transcript ?? ""),
+    );
     const { transcript, ...agentFields } = result;
+    agentFields.stderr = redact(agentFields.stderr);
     runs.push({ id, ...job, error: result.error, agent: agentFields, grade });
     rmSync(workspace, { recursive: true, force: true });
   }

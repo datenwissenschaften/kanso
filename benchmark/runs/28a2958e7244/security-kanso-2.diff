@@ -1,0 +1,53 @@
+diff --git a/src/documents.mjs b/src/documents.mjs
+index 74b966e..cbbca36 100644
+--- a/src/documents.mjs
++++ b/src/documents.mjs
+@@ -1,8 +1,12 @@
+ export class NotFoundError extends Error {}
+ 
+ // Returns the document with `id` for an authenticated caller ({ tenantId }).
++// Documents outside the caller's tenant are reported as missing.
+ export function readDocument(documents, caller, id) {
+-  const document = documents.find((candidate) => candidate.id === id);
++  const tenantId = caller?.tenantId;
++  const document = tenantId
++    ? documents.find((candidate) => candidate.id === id && candidate.tenantId === tenantId)
++    : undefined;
+   if (!document) throw new NotFoundError(`document ${id} not found`);
+   return document;
+ }
+diff --git a/test/documents.test.mjs b/test/documents.test.mjs
+index 3d56fe9..02f2864 100644
+--- a/test/documents.test.mjs
++++ b/test/documents.test.mjs
+@@ -1,6 +1,29 @@
+ import assert from "node:assert/strict";
+ import test from "node:test";
+-import { readDocument } from "../src/documents.mjs";
++import { NotFoundError, readDocument } from "../src/documents.mjs";
++
++const shared = [
++  { id: 42, tenantId: "b", title: "Secret" },
++  { id: 42, tenantId: "a", title: "Mine" },
++  { id: 7, title: "Untenanted" },
++];
++
++test("a document of another tenant is indistinguishable from a missing one", () => {
++  const expected = new NotFoundError("document 42 not found");
++  assert.throws(() => readDocument([shared[0]], { tenantId: "a" }, 42), expected);
++  assert.throws(() => readDocument([], { tenantId: "a" }, 42), expected);
++});
++
++test("finds the caller's document when ids collide across tenants", () => {
++  assert.equal(readDocument(shared, { tenantId: "a" }, 42).title, "Mine");
++});
++
++test("a caller without a tenant reads nothing", () => {
++  for (const caller of [{}, { tenantId: null }, { tenantId: "" }, null, undefined]) {
++    assert.throws(() => readDocument(shared, caller, 7), NotFoundError);
++    assert.throws(() => readDocument(shared, caller, 42), NotFoundError);
++  }
++});
+ 
+ test("reads a document of the caller's tenant", () => {
+   const documents = [{ id: 1, tenantId: "a", title: "Plan" }];

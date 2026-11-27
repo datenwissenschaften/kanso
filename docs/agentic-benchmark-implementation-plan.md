@@ -9,6 +9,6 @@
 
 ## Implementation and verification
 
-- Run **Actions → Agentic benchmark** on `main` with n = 5 per arm for `bug-fix`, `security` and `analytics`. Publish `results.json`, diffs, transcripts and the rendered explorer, including errored runs. Local smoke runs with `claude-sonnet-5-5` cost about USD 0.07 per run, so the registered protocol should cost about USD 2.
-- Check for a ceiling effect. In the smoke runs both arms solved `security` and `analytics` and wrote a test that failed on the defect. Only `bug-fix` separated the arms, where the baseline added no test. If the registered run shows the same ceiling, add harder fixtures before claiming a difference.
+- Replicate the registered protocol through **Actions → Agentic benchmark** on the Linux runner. The local Windows run cost USD 1.89 for 30 sessions.
+- Add harder fixtures. The registered local run in `benchmark/runs/28a2958e7244` solved 15/15 in both arms and had no escaped defects, so solved and escaped hit a ceiling. Only proven separated the arms, 8/15 against 15/15, driven by `bug-fix` and `analytics`.
 - Extend to the remaining scenarios in `tests/scenarios/README.md` with hidden acceptance, adversarial and calibration variants.

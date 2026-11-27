@@ -1,0 +1,2361 @@
+{
+  "revision": "28a2958e7244215c7d5b6275cd7f1e98a4f19ac5",
+  "protocol": {
+    "registeredBefore": "first paid run",
+    "question": "Does the Kanso skill change how often a coding agent ships a correct fix that its own tests prove?",
+    "primaryMetric": "proven",
+    "secondaryMetrics": [
+      "solved",
+      "escaped",
+      "costPerProvenUsd",
+      "productionLines",
+      "durationSeconds"
+    ],
+    "decisionRule": "Claim a difference only when the 95% Newcombe interval for kanso minus baseline excludes zero. Otherwise report inconclusive.",
+    "arms": {
+      "baseline": {
+        "pluginDir": null
+      },
+      "kanso": {
+        "pluginDir": "."
+      }
+    },
+    "agent": {
+      "package": "@anthropic-ai/claude-code",
+      "version": "2.1.292",
+      "model": "claude-sonnet-5-5",
+      "maxTurns": 30
+    },
+    "runsPerArm": 5,
+    "seed": 20261127,
+    "scenarios": [
+      "bug-fix",
+      "security",
+      "analytics"
+    ]
+  },
+  "runs": [
+    {
+      "id": "analytics-kanso-2",
+      "scenario": "analytics",
+      "arm": "kanso",
+      "index": 2,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0850607,
+        "durationSeconds": 28.227,
+        "turns": 12,
+        "usage": {
+          "input_tokens": 18,
+          "cache_creation_input_tokens": 10419,
+          "cache_read_input_tokens": 188286,
+          "output_tokens": 2132,
+          "output_tokens_details": {
+            "thinking_tokens": 83
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 10419
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 281,
+              "cache_read_input_tokens": 26261,
+              "cache_creation_input_tokens": 206,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 206,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 3
+        }
+      }
+    },
+    {
+      "id": "security-kanso-2",
+      "scenario": "security",
+      "arm": "kanso",
+      "index": 2,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0855678,
+        "durationSeconds": 33.529,
+        "turns": 11,
+        "usage": {
+          "input_tokens": 16,
+          "cache_creation_input_tokens": 10490,
+          "cache_read_input_tokens": 161604,
+          "output_tokens": 2699,
+          "output_tokens_details": {
+            "thinking_tokens": 84
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 10490
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 413,
+              "cache_read_input_tokens": 25814,
+              "cache_creation_input_tokens": 724,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 724,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 5,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "security-baseline-2",
+      "scenario": "security",
+      "arm": "baseline",
+      "index": 2,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.054049700000000006,
+        "durationSeconds": 23.832,
+        "turns": 7,
+        "usage": {
+          "input_tokens": 8,
+          "cache_creation_input_tokens": 8053,
+          "cache_read_input_tokens": 82956,
+          "output_tokens": 1731,
+          "output_tokens_details": {
+            "thinking_tokens": 75
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 8053
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 351,
+              "cache_read_input_tokens": 22602,
+              "cache_creation_input_tokens": 1499,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 1499,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 7,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "security-kanso-3",
+      "scenario": "security",
+      "arm": "kanso",
+      "index": 3,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0902475,
+        "durationSeconds": 31.594,
+        "turns": 11,
+        "usage": {
+          "input_tokens": 16,
+          "cache_creation_input_tokens": 11031,
+          "cache_read_input_tokens": 163640,
+          "output_tokens": 2991,
+          "output_tokens_details": {
+            "thinking_tokens": 59
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 11031
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 333,
+              "cache_read_input_tokens": 26556,
+              "cache_creation_input_tokens": 523,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 523,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 5,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "bug-fix-baseline-4",
+      "scenario": "bug-fix",
+      "arm": "baseline",
+      "index": 4,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.03234480000000001,
+        "durationSeconds": 9.599,
+        "turns": 3,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 6350,
+          "cache_read_input_tokens": 60089,
+          "output_tokens": 444,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 6350
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 140,
+              "cache_read_input_tokens": 22109,
+              "cache_creation_input_tokens": 289,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 289,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 1,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": false,
+        "proven": false,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "bug-fix-kanso-2",
+      "scenario": "bug-fix",
+      "arm": "kanso",
+      "index": 2,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0789756,
+        "durationSeconds": 25.198,
+        "turns": 12,
+        "usage": {
+          "input_tokens": 18,
+          "cache_creation_input_tokens": 10296,
+          "cache_read_input_tokens": 184898,
+          "output_tokens": 1622,
+          "output_tokens_details": {
+            "thinking_tokens": 66
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 10296
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 188,
+              "cache_read_input_tokens": 25794,
+              "cache_creation_input_tokens": 550,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 550,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "bug-fix-kanso-0",
+      "scenario": "bug-fix",
+      "arm": "kanso",
+      "index": 0,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.06027930000000001,
+        "durationSeconds": 20.577,
+        "turns": 11,
+        "usage": {
+          "input_tokens": 12,
+          "cache_creation_input_tokens": 9571,
+          "cache_read_input_tokens": 111239,
+          "output_tokens": 1408,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 9571
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 264,
+              "cache_read_input_tokens": 25158,
+              "cache_creation_input_tokens": 461,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 461,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 3,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "bug-fix-kanso-3",
+      "scenario": "bug-fix",
+      "arm": "kanso",
+      "index": 3,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0792661,
+        "durationSeconds": 28.509,
+        "turns": 12,
+        "usage": {
+          "input_tokens": 18,
+          "cache_creation_input_tokens": 10271,
+          "cache_read_input_tokens": 184663,
+          "output_tokens": 1662,
+          "output_tokens_details": {
+            "thinking_tokens": 63
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 10271
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 247,
+              "cache_read_input_tokens": 25759,
+              "cache_creation_input_tokens": 560,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 560,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "analytics-baseline-4",
+      "scenario": "analytics",
+      "arm": "baseline",
+      "index": 4,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0364742,
+        "durationSeconds": 14.808,
+        "turns": 5,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 7016,
+          "cache_read_input_tokens": 60511,
+          "output_tokens": 682,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 7016
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 209,
+              "cache_read_input_tokens": 22502,
+              "cache_creation_input_tokens": 562,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 562,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 1,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": false,
+        "proven": false,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 0
+        }
+      }
+    },
+    {
+      "id": "analytics-baseline-0",
+      "scenario": "analytics",
+      "arm": "baseline",
+      "index": 0,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0373985,
+        "durationSeconds": 15.393,
+        "turns": 5,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 7125,
+          "cache_read_input_tokens": 60520,
+          "output_tokens": 747,
+          "output_tokens_details": {
+            "thinking_tokens": 37
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 7125
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 226,
+              "cache_read_input_tokens": 22511,
+              "cache_creation_input_tokens": 662,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 662,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 1,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": false,
+        "proven": false,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 0
+        }
+      }
+    },
+    {
+      "id": "bug-fix-kanso-1",
+      "scenario": "bug-fix",
+      "arm": "kanso",
+      "index": 1,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.06067950000000001,
+        "durationSeconds": 24.686,
+        "turns": 8,
+        "usage": {
+          "input_tokens": 14,
+          "cache_creation_input_tokens": 9029,
+          "cache_read_input_tokens": 134445,
+          "output_tokens": 1119,
+          "output_tokens_details": {
+            "thinking_tokens": 53
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 9029
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 265,
+              "cache_read_input_tokens": 24769,
+              "cache_creation_input_tokens": 308,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 308,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 3,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "analytics-kanso-4",
+      "scenario": "analytics",
+      "arm": "kanso",
+      "index": 4,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0687547,
+        "durationSeconds": 26.032,
+        "turns": 12,
+        "usage": {
+          "input_tokens": 14,
+          "cache_creation_input_tokens": 9885,
+          "cache_read_input_tokens": 137071,
+          "output_tokens": 1660,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 9885
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 300,
+              "cache_read_input_tokens": 25690,
+              "cache_creation_input_tokens": 243,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 243,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 3
+        }
+      }
+    },
+    {
+      "id": "security-kanso-4",
+      "scenario": "security",
+      "arm": "kanso",
+      "index": 4,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.08847340000000001,
+        "durationSeconds": 31.507,
+        "turns": 14,
+        "usage": {
+          "input_tokens": 16,
+          "cache_creation_input_tokens": 11092,
+          "cache_read_input_tokens": 164057,
+          "output_tokens": 2790,
+          "output_tokens_details": {
+            "thinking_tokens": 89
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 11092
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 326,
+              "cache_read_input_tokens": 26652,
+              "cache_creation_input_tokens": 488,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 488,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 4,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "analytics-baseline-1",
+      "scenario": "analytics",
+      "arm": "baseline",
+      "index": 1,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.062278700000000006,
+        "durationSeconds": 21.888,
+        "turns": 7,
+        "usage": {
+          "input_tokens": 12,
+          "cache_creation_input_tokens": 8117,
+          "cache_read_input_tokens": 130261,
+          "output_tokens": 1591,
+          "output_tokens_details": {
+            "thinking_tokens": 35
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 8117
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 258,
+              "cache_read_input_tokens": 23931,
+              "cache_creation_input_tokens": 234,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 234,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 3
+        }
+      }
+    },
+    {
+      "id": "bug-fix-baseline-0",
+      "scenario": "bug-fix",
+      "arm": "baseline",
+      "index": 0,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.032454800000000006,
+        "durationSeconds": 11.935,
+        "turns": 3,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 6350,
+          "cache_read_input_tokens": 60089,
+          "output_tokens": 455,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 6350
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 151,
+              "cache_read_input_tokens": 22109,
+              "cache_creation_input_tokens": 289,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 289,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 1,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": false,
+        "proven": false,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "security-baseline-3",
+      "scenario": "security",
+      "arm": "baseline",
+      "index": 3,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.051913600000000004,
+        "durationSeconds": 21.036,
+        "turns": 7,
+        "usage": {
+          "input_tokens": 8,
+          "cache_creation_input_tokens": 7924,
+          "cache_read_input_tokens": 82838,
+          "output_tokens": 1552,
+          "output_tokens_details": {
+            "thinking_tokens": 60
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 7924
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 300,
+              "cache_read_input_tokens": 22544,
+              "cache_creation_input_tokens": 1428,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 1428,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 5,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "security-baseline-0",
+      "scenario": "security",
+      "arm": "baseline",
+      "index": 0,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0832647,
+        "durationSeconds": 25.247,
+        "turns": 11,
+        "usage": {
+          "input_tokens": 16,
+          "cache_creation_input_tokens": 8973,
+          "cache_read_input_tokens": 179201,
+          "output_tokens": 2496,
+          "output_tokens_details": {
+            "thinking_tokens": 73
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 8973
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 390,
+              "cache_read_input_tokens": 24933,
+              "cache_creation_input_tokens": 88,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 88,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 5,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "analytics-kanso-1",
+      "scenario": "analytics",
+      "arm": "kanso",
+      "index": 1,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.066574,
+        "durationSeconds": 23.985,
+        "turns": 11,
+        "usage": {
+          "input_tokens": 14,
+          "cache_creation_input_tokens": 9790,
+          "cache_read_input_tokens": 136955,
+          "output_tokens": 1468,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 9790
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 314,
+              "cache_read_input_tokens": 25703,
+              "cache_creation_input_tokens": 135,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 135,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 3
+        }
+      }
+    },
+    {
+      "id": "bug-fix-baseline-1",
+      "scenario": "bug-fix",
+      "arm": "baseline",
+      "index": 1,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0325041,
+        "durationSeconds": 11.544,
+        "turns": 3,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 6357,
+          "cache_read_input_tokens": 60098,
+          "output_tokens": 458,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 6357
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 152,
+              "cache_read_input_tokens": 22114,
+              "cache_creation_input_tokens": 291,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 291,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 1,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": false,
+        "proven": false,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "security-kanso-0",
+      "scenario": "security",
+      "arm": "kanso",
+      "index": 0,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.11041089999999999,
+        "durationSeconds": 39.208,
+        "turns": 14,
+        "usage": {
+          "input_tokens": 20,
+          "cache_creation_input_tokens": 11913,
+          "cache_read_input_tokens": 218642,
+          "output_tokens": 3686,
+          "output_tokens_details": {
+            "thinking_tokens": 21
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 11913
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 298,
+              "cache_read_input_tokens": 27836,
+              "cache_creation_input_tokens": 125,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 125,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 3,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 7,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "security-kanso-1",
+      "scenario": "security",
+      "arm": "kanso",
+      "index": 1,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.07073610000000001,
+        "durationSeconds": 29.159,
+        "turns": 12,
+        "usage": {
+          "input_tokens": 14,
+          "cache_creation_input_tokens": 9995,
+          "cache_read_input_tokens": 136953,
+          "output_tokens": 1833,
+          "output_tokens_details": {
+            "thinking_tokens": 58
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 9995
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 309,
+              "cache_read_input_tokens": 25594,
+              "cache_creation_input_tokens": 449,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 449,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 5,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 4,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "analytics-baseline-3",
+      "scenario": "analytics",
+      "arm": "baseline",
+      "index": 3,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.055516800000000005,
+        "durationSeconds": 25.201,
+        "turns": 5,
+        "usage": {
+          "input_tokens": 10,
+          "cache_creation_input_tokens": 7886,
+          "cache_read_input_tokens": 106359,
+          "output_tokens": 1451,
+          "output_tokens_details": {
+            "thinking_tokens": 41
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 7886
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 187,
+              "cache_read_input_tokens": 23269,
+              "cache_creation_input_tokens": 665,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 665,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 5,
+          "deleted": 3
+        }
+      }
+    },
+    {
+      "id": "bug-fix-baseline-3",
+      "scenario": "bug-fix",
+      "arm": "baseline",
+      "index": 3,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0330948,
+        "durationSeconds": 13.199,
+        "turns": 3,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 6350,
+          "cache_read_input_tokens": 60089,
+          "output_tokens": 519,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 6350
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 215,
+              "cache_read_input_tokens": 22109,
+              "cache_creation_input_tokens": 289,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 289,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 1,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": false,
+        "proven": false,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "bug-fix-kanso-4",
+      "scenario": "bug-fix",
+      "arm": "kanso",
+      "index": 4,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.08076850000000001,
+        "durationSeconds": 37.35,
+        "turns": 12,
+        "usage": {
+          "input_tokens": 18,
+          "cache_creation_input_tokens": 10407,
+          "cache_read_input_tokens": 184825,
+          "output_tokens": 1775,
+          "output_tokens_details": {
+            "thinking_tokens": 65
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 10407
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 263,
+              "cache_read_input_tokens": 25869,
+              "cache_creation_input_tokens": 586,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 586,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 3,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "security-baseline-1",
+      "scenario": "security",
+      "arm": "baseline",
+      "index": 1,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.053607199999999994,
+        "durationSeconds": 27.644,
+        "turns": 7,
+        "usage": {
+          "input_tokens": 8,
+          "cache_creation_input_tokens": 8048,
+          "cache_read_input_tokens": 82956,
+          "output_tokens": 1688,
+          "output_tokens_details": {
+            "thinking_tokens": 76
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 8048
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 316,
+              "cache_read_input_tokens": 22602,
+              "cache_creation_input_tokens": 1494,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 1494,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 5,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "analytics-kanso-3",
+      "scenario": "analytics",
+      "arm": "kanso",
+      "index": 3,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0668851,
+        "durationSeconds": 34.049,
+        "turns": 10,
+        "usage": {
+          "input_tokens": 14,
+          "cache_creation_input_tokens": 9603,
+          "cache_read_input_tokens": 136248,
+          "output_tokens": 1560,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 9603
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 262,
+              "cache_read_input_tokens": 25447,
+              "cache_creation_input_tokens": 204,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 204,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 3
+        }
+      }
+    },
+    {
+      "id": "analytics-kanso-0",
+      "scenario": "analytics",
+      "arm": "kanso",
+      "index": 0,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.08369600000000002,
+        "durationSeconds": 46.751,
+        "turns": 12,
+        "usage": {
+          "input_tokens": 18,
+          "cache_creation_input_tokens": 10316,
+          "cache_read_input_tokens": 188350,
+          "output_tokens": 2020,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 10316
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 273,
+              "cache_read_input_tokens": 26236,
+              "cache_creation_input_tokens": 128,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 128,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 3
+        }
+      }
+    },
+    {
+      "id": "bug-fix-baseline-2",
+      "scenario": "bug-fix",
+      "arm": "baseline",
+      "index": 2,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0327573,
+        "durationSeconds": 13.398,
+        "turns": 3,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 6351,
+          "cache_read_input_tokens": 60089,
+          "output_tokens": 485,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 6351
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 180,
+              "cache_read_input_tokens": 22109,
+              "cache_creation_input_tokens": 290,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 290,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 1,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": false,
+        "proven": false,
+        "escaped": false,
+        "productionLines": {
+          "added": 1,
+          "deleted": 1
+        }
+      }
+    },
+    {
+      "id": "analytics-baseline-2",
+      "scenario": "analytics",
+      "arm": "baseline",
+      "index": 2,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.0537743,
+        "durationSeconds": 24.585,
+        "turns": 8,
+        "usage": {
+          "input_tokens": 10,
+          "cache_creation_input_tokens": 8317,
+          "cache_read_input_tokens": 107009,
+          "output_tokens": 1156,
+          "output_tokens_details": {
+            "thinking_tokens": 41
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 8317
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 218,
+              "cache_read_input_tokens": 24161,
+              "cache_creation_input_tokens": 204,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 204,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 3,
+          "deleted": 3
+        }
+      }
+    },
+    {
+      "id": "security-baseline-4",
+      "scenario": "security",
+      "arm": "baseline",
+      "index": 4,
+      "error": null,
+      "agent": {
+        "stderr": "",
+        "error": null,
+        "costUsd": 0.057508000000000004,
+        "durationSeconds": 29.075,
+        "turns": 8,
+        "usage": {
+          "input_tokens": 10,
+          "cache_creation_input_tokens": 8024,
+          "cache_read_input_tokens": 106790,
+          "output_tokens": 1607,
+          "output_tokens_details": {
+            "thinking_tokens": 74
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 8024
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 286,
+              "cache_read_input_tokens": 23834,
+              "cache_creation_input_tokens": 238,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 238,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      },
+      "grade": {
+        "acceptance": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "adversarial": {
+          "pass": 4,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTests": {
+          "pass": 2,
+          "fail": 0,
+          "ok": true
+        },
+        "agentTestsPass": true,
+        "solved": true,
+        "redProof": true,
+        "proven": true,
+        "escaped": false,
+        "productionLines": {
+          "added": 7,
+          "deleted": 1
+        }
+      }
+    }
+  ],
+  "summary": {
+    "arms": {
+      "baseline": {
+        "runs": 15,
+        "errors": 0,
+        "costUsd": 0.7089415,
+        "durationSeconds": 288.384,
+        "productionLines": 70,
+        "solved": {
+          "count": 15,
+          "n": 15,
+          "rate": 1,
+          "ci95": [
+            0.7961166964035129,
+            1
+          ]
+        },
+        "proven": {
+          "count": 8,
+          "n": 15,
+          "rate": 0.5333333333333333,
+          "ci95": [
+            0.3011697987531101,
+            0.751904647673791
+          ]
+        },
+        "escaped": {
+          "count": 0,
+          "n": 15,
+          "rate": 0,
+          "ci95": [
+            0,
+            0.20388330359648707
+          ]
+        },
+        "costPerProvenUsd": 0.0886176875
+      },
+      "kanso": {
+        "runs": 15,
+        "errors": 0,
+        "costUsd": 1.1763751999999998,
+        "durationSeconds": 460.361,
+        "productionLines": 70,
+        "solved": {
+          "count": 15,
+          "n": 15,
+          "rate": 1,
+          "ci95": [
+            0.7961166964035129,
+            1
+          ]
+        },
+        "proven": {
+          "count": 15,
+          "n": 15,
+          "rate": 1,
+          "ci95": [
+            0.7961166964035129,
+            1
+          ]
+        },
+        "escaped": {
+          "count": 0,
+          "n": 15,
+          "rate": 0,
+          "ci95": [
+            0,
+            0.20388330359648707
+          ]
+        },
+        "costPerProvenUsd": 0.07842501333333332
+      }
+    },
+    "difference": {
+      "solved": {
+        "difference": 0,
+        "ci95": [
+          -0.2038833035964871,
+          0.2038833035964871
+        ]
+      },
+      "proven": {
+        "difference": 0.4666666666666667,
+        "ci95": [
+          0.16776564469127686,
+          0.6988302012468899
+        ]
+      },
+      "escaped": {
+        "difference": 0,
+        "ci95": [
+          -0.20388330359648707,
+          0.20388330359648707
+        ]
+      }
+    },
+    "verdict": {
+      "solved": "inconclusive",
+      "proven": "kanso better",
+      "escaped": "inconclusive"
+    }
+  }
+}

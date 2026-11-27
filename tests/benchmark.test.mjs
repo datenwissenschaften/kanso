@@ -2,7 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { gradeWorkspace, materialize } from "../benchmark/grade.mjs";
 import { summarize, wilson } from "../benchmark/summary.mjs";
-import { runBenchmark, schedule, stagePlugin } from "../benchmark/run.mjs";
+import {
+  redact,
+  runBenchmark,
+  schedule,
+  stagePlugin,
+} from "../benchmark/run.mjs";
 import { render } from "../benchmark/report.mjs";
 import {
   cpSync,
@@ -85,6 +90,25 @@ test("schedule is seeded, balanced and interleaves the arms", () => {
   assert.notDeepEqual(
     jobs.slice(0, 5).map((job) => job.arm),
     Array(5).fill("baseline"),
+  );
+});
+
+test("published artifacts replace the home directory in every spelling", () => {
+  const home = "C:\\Users\\jane";
+  const text = [
+    "cd C:/Users/jane/AppData/Local/Temp/kanso-bench-1",
+    JSON.stringify("C:\\Users\\Jane\\AppData"),
+    "C:\\Users\\jane\\x",
+    "C:/Users/janet/keep",
+  ].join("\n");
+  assert.equal(
+    redact(text, home),
+    [
+      "cd ~/AppData/Local/Temp/kanso-bench-1",
+      JSON.stringify("~\\AppData"),
+      "~\\x",
+      "C:/Users/janet/keep",
+    ].join("\n"),
   );
 });
 
