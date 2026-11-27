@@ -10,6 +10,15 @@ Use [Semantic Versioning](https://semver.org/). Use patch releases for compatibl
 
 Update the version in `package.json` and the Claude Code, Codex, and Copilot manifests together. The [quality workflow](.github/workflows/quality.yml) builds and inspects the ZIP and npm tarball. Pushing a matching `vX.Y.Z` tag starts the [publish workflow](.github/workflows/publish.yml). It reruns quality checks and attaches the verified ZIP to the GitHub release.
 
+Run **Actions → Publish → Run workflow** to rehearse the build and artifact handoff without publishing.
+
 To enable npm publishing, create the initial package with an authorized npm account. In its [trusted publisher settings](https://docs.npmjs.com/trusted-publishers/), select GitHub Actions and register `datenwissenschaften/kanso`, workflow `publish.yml`, and environment `npm`. Set the GitHub repository variable `NPM_PUBLISH_ENABLED` to `true` after setup. Future tags publish the verified tarball using OIDC.
 
-To run the paid [agent evaluation workflow](.github/workflows/evaluate.yml), configure the `evaluation` environment with `ANTHROPIC_API_KEY` and enable the repository variable `KANSO_EVAL_ENABLED`. Dispatch it from Actions. It uses synthetic scenarios and saves reports as run artifacts. The evaluator checks a USD 3 budget before each run. Concurrent runs already underway can exceed it.
+### Agent evaluation setup
+
+1. Create an API key in the [Claude Console](https://platform.claude.com/settings/keys) for a workspace with API credits or billing configured.
+2. In GitHub, open **Settings → Environments → evaluation** and add an environment secret named `ANTHROPIC_API_KEY`.
+3. Under **Settings → Secrets and variables → Actions → Variables**, set the repository variable `KANSO_EVAL_ENABLED` to `true`.
+4. Open **Actions → Agent evaluation → Run workflow** and select `main`.
+
+The [workflow](.github/workflows/evaluate.yml) uses synthetic scenarios and saves JSON and HTML reports as run artifacts. The evaluator checks a USD 3 budget before each run. Concurrent runs already underway can exceed it.

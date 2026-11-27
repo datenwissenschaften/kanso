@@ -3,6 +3,7 @@ name: Publish
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -15,7 +16,27 @@ jobs:
   quality:
     uses: ./.github/workflows/quality.yml
 
+  rehearsal:
+    if: github.event_name == 'workflow_dispatch'
+    needs: quality
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: kanso-distribution
+          path: dist
+      - name: Verify deliverables without publishing
+        run: |
+          unzip -t dist/kanso.zip
+          shopt -s failglob
+          archives=(dist/kanso-skill-*.tgz)
+          test "${#archives[@]}" = 1
+          tar -tzf "${archives[0]}" > "$RUNNER_TEMP/npm-files"
+          grep -Fx package/skills/kanso/SKILL.md "$RUNNER_TEMP/npm-files"
+          sha256sum dist/kanso.zip "${archives[0]}"
+
   github-release:
+    if: github.event_name == 'push'
     needs: quality
     runs-on: ubuntu-24.04
     permissions:

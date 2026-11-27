@@ -10,6 +10,5 @@ Kanso will ship one skill for software, data science, analytics, and AI product 
 
 ## Implementation and verification
 
-1. Package the same skill for the supported marketplaces, ZIP and npm. Verify discovery, validate manifests, inspect each archive, and test local installation.
-2. Add the data and AI playbook, illustrations and decision scenarios. Check relative links and keep measured pilot results separate from repository execution benchmarks.
-3. Run the quality workflow on the release commit, publish the GitHub release, then smoke-test installation from its public sources. Publish the npm package when an authorized registry account is available.
+- Publish the initial npm package when an authorized registry account is available. Configure OIDC for subsequent releases.
+- Run the paid paired evaluation after the repository's evaluation environment has an API key and the workflow is enabled. Use working repository fixtures for any claims about generated code or executed tests.
