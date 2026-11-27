@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+
+- Add an agentic benchmark that grades baseline and Kanso changes on working fixtures with hidden acceptance and adversarial tests and a RED proof.
+- Add bug-fix, tenant isolation and revenue fixtures, a pre-registered protocol and a static report.
+- Stop publishing to npm. Releases ship the verified ZIP on GitHub.
+
 ## 1.1.0
 
 - Package the canonical skill for Codex and Claude Code plugin marketplaces and Skills CLI.

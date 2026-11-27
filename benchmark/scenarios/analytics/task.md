@@ -1,0 +1,1 @@
+Finance reports that the weekly revenue dashboard overstates revenue. Order `7` for 5000 cents was paid in two instalments and appears as 10000 cents in `weeklyRevenue`. Fix the defect in this repository. Keep the public `weeklyRevenue` function in `src/revenue.mjs`, which counts each paid order once at its full amount in the UTC week of its creation.

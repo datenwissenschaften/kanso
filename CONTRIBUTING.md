@@ -12,7 +12,13 @@ Update the version in `package.json` and the Claude Code, Codex, and Copilot man
 
 Run **Actions → Publish → Run workflow** to rehearse the build and artifact handoff without publishing.
 
-To enable npm publishing, create the initial package with an authorized npm account. In its [trusted publisher settings](https://docs.npmjs.com/trusted-publishers/), select GitHub Actions and register `datenwissenschaften/kanso`, workflow `publish.yml`, and environment `npm`. Set the GitHub repository variable `NPM_PUBLISH_ENABLED` to `true` after setup. Future tags publish the verified tarball using OIDC.
+Kanso is not published to npm. The tarball check only confirms that the package metadata ships the canonical skill.
+
+### Agentic benchmark
+
+The [benchmark](benchmark/protocol.json) runs a coding agent on working fixtures with and without Kanso. Hidden acceptance and adversarial tests decide whether a fix is correct. A fix counts as proven only when the agent's own tests fail on the original defect and pass on its change. Commit protocol changes before a paid run. The runner refuses an uncommitted tree so the report can cite the revision. Run **Actions → Agentic benchmark → Run workflow** on `main` with the evaluation setup below. The [workflow](.github/workflows/benchmark.yml) uploads results, diffs, transcripts and the static explorer as an artifact.
+
+To run locally, put `ANTHROPIC_API_KEY` in an ignored `.env` file and run `node --env-file=.env benchmark/run.mjs`, then `node benchmark/report.mjs benchmark/results/<revision>`. Add `--smoke <scenario>` to check the pipeline with one run per arm. Smoke reports are labelled and are not results.
 
 ### Agent evaluation setup
 

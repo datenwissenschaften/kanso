@@ -61,7 +61,7 @@ Run the [Skills CLI](https://skills.sh/) from your project directory. Add `--glo
 npx --yes skills@1.9.1 add datenwissenschaften/kanso --skill kanso
 ```
 
-The Skills CLI installs the skill from GitHub. For a manual install, [download kanso.zip](https://github.com/datenwissenschaften/kanso/releases/download/v1.1.0/kanso.zip), extract the bundle and [add the activation instruction](#apply-it-on-every-prompt).
+The Skills CLI installs the skill from GitHub. For a manual install, [download kanso.zip](https://github.com/datenwissenschaften/kanso/releases/download/v1.2.0/kanso.zip), extract the bundle and [add the activation instruction](#apply-it-on-every-prompt).
 
 ### Global installation
 
@@ -113,6 +113,8 @@ Contributors can link an existing clone into the same skills directory for live 
 
 ## Benchmark status
 
-**14 scenarios × 4 Codex batches = 56 responses.** The [decision pilot](tests/scenarios/README.md#pilot-results) measured response time and tokens. A separate [Claude Code run](https://github.com/datenwissenschaften/kanso/actions/runs/45971015361) fell below the passing threshold. Both evaluations use written scenarios. Repository implementation and executed tests require a separate benchmark.
+**14 scenarios × 4 Codex batches = 56 responses.** The [decision pilot](tests/scenarios/README.md#pilot-results) measured response time and tokens. A separate [Claude Code run](https://github.com/datenwissenschaften/kanso/actions/runs/45971015361) fell below the passing threshold. Both evaluations use written scenarios.
+
+The [agentic benchmark](benchmark/protocol.json) runs Claude Code on working fixtures with and without Kanso and grades each change with hidden tests. A fix counts as proven only when the agent's own tests fail on the original defect. The protocol is registered, and no registered run has been published yet.
 
 [Contribute](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [MIT license](LICENSE)

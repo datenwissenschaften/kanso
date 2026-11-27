@@ -43,9 +43,9 @@ jobs:
           package-manager-cache: false
       - name: Validate format and skill metadata
         run: |
-          npx --yes prettier@3.8.1 --check '**/*.md' '.github/*.md' '.github/**/*.yml' '.github/plugin/*.json' '.agents/plugins/*.json' '.claude-plugin/*.json' '.codex-plugin/*.json' 'hooks/*.json' package.json tests/distribution.test.mjs
+          npx --yes prettier@3.8.1 --check '**/*.md' '.github/*.md' '.github/**/*.yml' '.github/plugin/*.json' '.agents/plugins/*.json' '.claude-plugin/*.json' '.codex-plugin/*.json' 'hooks/*.json' package.json tests/*.mjs benchmark/*.mjs benchmark/protocol.json
           uvx --python 3.13 --from 'git+https://github.com/agentskills/agentskills.git@83021e2be457a9b6679148719c1f6074f0ad975e#subdirectory=skills-ref' skills-ref validate skills/kanso
-          node --test tests/distribution.test.mjs
+          node --test tests/distribution.test.mjs tests/benchmark.test.mjs
       - name: Verify required files and resource discovery
         shell: bash
         run: |

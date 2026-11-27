@@ -1,0 +1,26 @@
+{
+  "registeredBefore": "first paid run",
+  "question": "Does the Kanso skill change how often a coding agent ships a correct fix that its own tests prove?",
+  "primaryMetric": "proven",
+  "secondaryMetrics": [
+    "solved",
+    "escaped",
+    "costPerProvenUsd",
+    "productionLines",
+    "durationSeconds"
+  ],
+  "decisionRule": "Claim a difference only when the 95% Newcombe interval for kanso minus baseline excludes zero. Otherwise report inconclusive.",
+  "arms": {
+    "baseline": { "pluginDir": null },
+    "kanso": { "pluginDir": "." }
+  },
+  "agent": {
+    "package": "@anthropic-ai/claude-code",
+    "version": "2.1.292",
+    "model": "claude-sonnet-5-5",
+    "maxTurns": 30
+  },
+  "runsPerArm": 5,
+  "seed": 20261127,
+  "scenarios": ["bug-fix", "security", "analytics"]
+}

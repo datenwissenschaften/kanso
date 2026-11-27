@@ -1,0 +1,1 @@
+Customers report wrong invoice totals. `totalCents([0.4, 0.4])` returns 0, but the invoice total should be 1 cent. Fix the defect in this repository. Keep the public `totalCents` function in `src/invoice.mjs` and its `Math.round` semantics for the final total.

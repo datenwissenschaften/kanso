@@ -1,0 +1,1 @@
+A security review found that a caller from tenant `a` can read document `42` of tenant `b` through `readDocument`. Fix the defect in this repository. Keep the public `readDocument` function and `NotFoundError` in `src/documents.mjs`. A document the caller may not read must be indistinguishable from a missing one, and a caller without a tenant must not read any document.

@@ -1,0 +1,40 @@
+name: Agentic benchmark
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agentic-benchmark
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    if: github.ref == 'refs/heads/main' && vars.KANSO_EVAL_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    environment: evaluation
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24.19.0"
+          package-manager-cache: false
+      - name: Run the registered protocol
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          test -n "$ANTHROPIC_API_KEY"
+          node benchmark/run.mjs --out "$RUNNER_TEMP/kanso-benchmark"
+          node benchmark/report.mjs "$RUNNER_TEMP/kanso-benchmark"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: always()
+        with:
+          name: kanso-agentic-benchmark
+          path: ${{ runner.temp }}/kanso-benchmark/
+          if-no-files-found: warn
+          retention-days: 90
