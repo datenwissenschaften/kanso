@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo Use the kanso skill for this prompt. Apply the guidance relevant to the task and respect repository contracts.",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

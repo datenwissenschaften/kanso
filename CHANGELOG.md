@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0
+
+- Package the canonical skill for Codex and Claude Code plugin marketplaces and Skills CLI.
+- Add runnable Claude Code scenarios for paired evaluation with and without the plugin.
+- Make affected callers, existing safeguards, and reuse choices explicit in the core workflow.
+- Rename the skill and plugin to Kanso and add an opinionated data science, analytics, and AI playbook.
+
 ## 1.0.0
 
 - Establish the initial public MIT-licensed Agent Skill.

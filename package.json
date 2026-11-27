@@ -1,0 +1,17 @@
+{
+  "name": "kanso-skill",
+  "version": "1.1.0",
+  "description": "Opinionated engineering guidance for software, analytics, data science, and AI products.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datenwissenschaften/kanso.git"
+  },
+  "files": [
+    "skills/kanso/",
+    "assets/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

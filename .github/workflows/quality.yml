@@ -26,16 +26,18 @@ jobs:
           package-manager-cache: false
       - name: Validate format and skill metadata
         run: |
-          npx --yes prettier@3.8.1 --check '**/*.md' '.github/workflows/*.yml'
-          uvx --python 3.13 --from 'git+https://github.com/agentskills/agentskills.git@83021e2be457a9b6679148719c1f6074f0ad975e#subdirectory=skills-ref' skills-ref validate "$GITHUB_WORKSPACE"
+          npx --yes prettier@3.8.1 --check '**/*.md' '.github/workflows/*.yml' '.agents/plugins/*.json' '.claude-plugin/*.json' '.codex-plugin/*.json' 'hooks/*.json' package.json
+          uvx --python 3.13 --from 'git+https://github.com/agentskills/agentskills.git@83021e2be457a9b6679148719c1f6074f0ad975e#subdirectory=skills-ref' skills-ref validate skills/kanso
       - name: Verify required files and resource discovery
         shell: bash
         run: |
           required=(
-            SKILL.md README.md LICENSE CHANGELOG.md CONTRIBUTING.md
-            references/{automation,security-and-design,testing,dependencies,architecture}.md
-            profiles/{python,typescript,rust,go,java}.md
+            skills/kanso/SKILL.md README.md LICENSE CHANGELOG.md CONTRIBUTING.md
+            skills/kanso/references/{automation,security-and-design,testing,dependencies,architecture,data-and-ai}.md
+            skills/kanso/profiles/{python,typescript,rust,go,java}.md
             tests/scenarios/README.md .github/workflows/quality.yml
+            .agents/plugins/marketplace.json .codex-plugin/plugin.json
+            .claude-plugin/{marketplace,plugin}.json hooks/hooks.json package.json
           )
           for file in "${required[@]}"; do
             if [[ ! -s "$file" ]]; then
@@ -43,7 +45,8 @@ jobs:
               exit 1
             fi
           done
-          for resource in references/*.md profiles/*.md tests/scenarios/README.md; do
+          cd skills/kanso
+          for resource in references/*.md profiles/*.md; do
             grep -Fq "]($resource)" SKILL.md || { echo "Unlinked resource: $resource" >&2; exit 1; }
           done
       - name: Verify links, workflow, and secrets
@@ -65,7 +68,7 @@ jobs:
           tar -xzf gitleaks.tar.gz gitleaks
 
           cd "$GITHUB_WORKSPACE"
-          "$tools/lychee-x86_64-unknown-linux-gnu/lychee" --offline '*.md' 'docs/*.md' 'references/*.md' 'profiles/*.md' 'tests/scenarios/*.md'
+          "$tools/lychee-x86_64-unknown-linux-gnu/lychee" --offline '*.md' 'docs/*.md' 'skills/**/*.md' 'tests/scenarios/**/*.md'
           "$tools/actionlint"
           "$tools/gitleaks" git --redact --log-opts=--all
           "$tools/gitleaks" dir --redact .

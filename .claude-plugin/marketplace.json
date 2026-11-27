@@ -1,0 +1,13 @@
+{
+  "name": "kanso",
+  "description": "A marketplace for the Kanso skill.",
+  "owner": {
+    "name": "datenwissenschaften"
+  },
+  "plugins": [
+    {
+      "name": "kanso",
+      "source": "./"
+    }
+  ]
+}

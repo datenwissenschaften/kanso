@@ -1,0 +1,15 @@
+{
+  "name": "kanso",
+  "version": "1.1.0",
+  "description": "Engineering guidance for small, secure, tested changes.",
+  "license": "MIT",
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "Kanso",
+    "shortDescription": "Minimal Code. Maximum Assurance.",
+    "category": "Productivity",
+    "composerIcon": "./assets/kanso-logo.png",
+    "logo": "./assets/kanso-logo.png"
+  }
+}
