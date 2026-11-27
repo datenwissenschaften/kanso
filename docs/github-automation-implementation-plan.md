@@ -9,3 +9,5 @@
 ## Implementation and verification
 
 - Verify actual publishing on the next authorized version tag.
+- Refresh the three Dependabot action pins and verify them together against current CI.
+- Add workflow and dependency review gates, enable available GitHub security controls, and verify the resulting checks on a pull request.
